@@ -1,67 +1,59 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const mysql = require('mysql2');
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcrypt');
+const express = require("express");
+const cors = require("cors");
 
 const app = express();
-const port = process.env.PORT || 3000;
 
-// Middleware
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+const corsOptions = {
+  origin: "http://localhost:8081"
+};
 
-// MySQL Database Connection
-const db = mysql.createConnection({
-  host: 'your-mysql-host',
-  user: 'your-mysql-user',
-  password: 'your-mysql-password',
-  database: 'your-database-name',
+app.use(cors(corsOptions));
+
+// parse requests of content-type - application/json
+app.use(express.json());
+
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+
+// database
+const db = require("./app/models");
+const Role = db.role;
+
+db.sequelize.sync();
+// force: true will drop the table if it already exists
+// db.sequelize.sync({force: true}).then(() => {
+//   console.log('Drop and Resync Database with { force: true }');
+//   initial();
+// });
+
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to bezkoder application." });
 });
 
-db.connect((err) => {
-  if (err) {
-    console.error('Database connection failed: ', err);
-  } else {
-    console.log('Connected to the database');
-  }
+// routes
+require('./app/routes/auth.routes')(app);
+require('./app/routes/user.routes')(app);
+
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
 });
 
-// JWT Secret Key (Change this to a secure random key)
-const jwtSecretKey = 'your-secret-key';
-
-// Routes for Authentication
-app.post('/api/login', async (req, res) => {
-  const { username, password } = req.body;
-
-  // Check credentials and generate JWT token
-  // You should query your MySQL database here to validate the user
-  // Replace this with your actual database query logic
-
-  // For example, assuming you have a 'users' table:
-  db.query('SELECT * FROM users WHERE username = ?', [username], (err, results) => {
-    if (err) {
-      console.error('Error querying the database: ', err);
-      res.status(500).json({ error: 'Internal Server Error' });
-    } else if (results.length === 0) {
-      res.status(401).json({ error: 'Invalid credentials' });
-    } else {
-      const user = results[0];
-      bcrypt.compare(password, user.password, (bcryptErr, bcryptRes) => {
-        if (bcryptErr || !bcryptRes) {
-          res.status(401).json({ error: 'Invalid credentials' });
-        } else {
-          // Create a JWT token and send it to the client
-          const token = jwt.sign({ userId: user.id, username: user.username }, jwtSecretKey);
-          res.json({ token });
-        }
-      });
-    }
+function initial() {
+  Role.create({
+    id: 1,
+    name: "user"
   });
-});
-
-// Add other routes for registration, token refreshing, etc.
-
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+ 
+  Role.create({
+    id: 2,
+    name: "moderator"
+  });
+ 
+  Role.create({
+    id: 3,
+    name: "admin"
+  });
+}
