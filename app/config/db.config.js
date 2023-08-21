@@ -1,9 +1,12 @@
+// Import the dotenv library
+require('dotenv').config();
+
 module.exports = {
-  HOST: "localhost",
-  USER: "rootx",
-  PASSWORD: "asdfghjkl",
-  DB: "testdb",
-  dialect: "mysql",
+  HOST: process.env.HOST,
+  USER: process.env.USER,
+  PASSWORD: process.env.PASSWORD,
+  DB: process.env.DB,
+  dialect: process.env.DIALECT,
   pool: {
     max: 5,
     min: 0,
