@@ -25,20 +25,20 @@ db.sequelize.sync();
 //   console.log('Drop and Resync Database with { force: true }');
 //   initial();
 // });
-
+  
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to bezkoder application." });
+  res.json({ message: "Welcome to kabondi application  `Server is running on port there are the end points   ." });
 });
 
 // routes
 require('./app/routes/auth.routes')(app);
 require('./app/routes/user.routes')(app);
 
-// set port, listen for requests
+// set port, listen for requests       
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`);
+  console.log(`Server is running on port there are the end points ${PORT}.`);
 });
 
 function initial() {
@@ -55,5 +55,14 @@ function initial() {
   Role.create({
     id: 3,
     name: "admin"
+    
+    
+  });
+
+  Role.create({
+    id: 4,
+    name: "superuerss"
+    
+    
   });
 }
