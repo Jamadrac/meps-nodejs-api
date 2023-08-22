@@ -1,0 +1,16 @@
+require('dotenv').config();
+
+
+module.exports = {
+  HOST: process.env.POSTGRES_HOST, // Use the PostgreSQL host from your environment variables
+  USER: process.env.POSTGRES_USER, // Use the PostgreSQL username from your environment variables
+  PASSWORD: process.env.POSTGRES_PASSWORD, // Use the PostgreSQL password from your environment variables
+  DB: process.env.POSTGRES_DATABASE, // Use the PostgreSQL database name from your environment variables
+  dialect: "postgres", // Use "postgres" as the dialect for PostgreSQL
+  pool: {
+    max: 5,
+    min: 0,
+    acquire: 30000,
+    idle: 10000
+  }
+};
