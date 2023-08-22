@@ -28,7 +28,51 @@ db.sequelize.sync();
   
 // simple route
 app.get("/", (req, res) => {
-  res.json({ message: "Welcome to kabondi application  `Server is running on port there are the end points   ." });
+  // Define the table content as an array of objects
+  const endpoints = [
+    {
+      Method: "POST",
+      Urls: "/api/auth/signup",
+      Actions: "Signup new account"
+    },
+    {
+      Method: "POST",
+      Urls: "/api/auth/signin",
+      Actions: "Login an account"
+    },
+    {
+      Method: "GET",
+      Urls: "/api/test/all",
+      Actions: "Retrieve public content"
+    },
+    {
+      Method: "GET",
+      Urls: "/api/test/user",
+      Actions: "Access User’s content"
+    },
+    {
+      Method: "GET",
+      Urls: "/api/test/mod",
+      Actions: "Access Moderator’s content"
+    },
+    {
+      Method: "GET",
+      Urls: "/api/test/admin",
+      Actions: "Access Admin’s content"
+    }
+  ];
+
+  // Generate the HTML table
+  let tableHtml = "<table>";
+  tableHtml += "<tr><th>Method</th><th>URLs</th><th>Actions</th></tr>";
+
+  for (const endpoint of endpoints) {
+    tableHtml += `<tr><td>${endpoint.Method}</td><td>${endpoint.Urls}</td><td>${endpoint.Actions}</td></tr>`;
+  }
+
+  tableHtml += "</table>";
+
+  res.send(tableHtml);
 });
 
 // routes
