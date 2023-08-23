@@ -1,12 +1,9 @@
-// Import the dotenv library
-require('dotenv').config();
-
 module.exports = {
-  HOST: process.env.HOST,
-  USER: process.env.USER,
-  PASSWORD: process.env.PASSWORD,
-  DB: process.env.DB,
-  dialect: process.env.DIALECT,
+  HOST: "ep-divine-fog-07767063-pooler.us-east-1.postgres.vercel-storage.com",
+  USER: "default",
+  PASSWORD: "bhGYIyDtT28X",
+  DB: "verceldb",
+  dialect: "postgres",
   pool: {
     max: 5,
     min: 0,
