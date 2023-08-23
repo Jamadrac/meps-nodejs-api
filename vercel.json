@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "name": "MERN_Login_App_with_ResetEmail-Main",
+  "name": "node-js-jwt-auth",
   "builds": [
      { "src": "server.js", "use": "@vercel/node" }
   ],
