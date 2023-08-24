@@ -1,8 +1,8 @@
 module.exports = {
-  HOST: "ep-divine-fog-07767063-pooler.us-east-1.postgres.vercel-storage.com",
-  USER: "default",
-  PASSWORD: "bhGYIyDtT28X",
-  DB: "verceldb",
+  HOST: "127.0.0.1",
+  USER: "postgres",
+  PASSWORD: "12345678",
+  DB: "maz",
   dialect: "postgres",
   pool: {
     max: 5,

@@ -19,7 +19,7 @@ module.exports = function(app) {
     controller.signup
   );
 
-  app.post("/api/auth/signin", controller.signin);
+  app.post("/api/token/", controller.signin);
 
-  app.post("/api/auth/refreshtoken", controller.refreshToken);
+  app.post("/api/token/refresh/", controller.refreshToken);
 };
