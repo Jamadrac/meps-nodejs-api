@@ -1,8 +1,5 @@
 const config = require("../config/auth.config");
 const { v4: uuidv4 } = require("uuid");
-const db = require("../models");
-const { refreshToken: RefreshToken } = db;
-
 
 module.exports = (sequelize, Sequelize) => {
   const RefreshToken = sequelize.define("refreshToken", {
